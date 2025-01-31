@@ -14,7 +14,7 @@ if(isEditing) {
 }
 
     return <li>
-    <span class="player">
+    <span class = "player">
     <span class="player-name">{playerName}</span>
     <span class="player-symbol">{symbol}</span>
     </span>
