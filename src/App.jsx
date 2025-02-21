@@ -1,26 +1,27 @@
 import { useState } from 'react'
-
 import Player from './components/Player'
 import GameBoard from './components/GameBoard'
 import Log from './components/Log'
+
+function deriveActivePlayer(gameTurns) {
+  if (gameTurns.length > 0 && gameTurns[0].player === 'X') {
+    return 'O'
+  }
+  return 'X'
+}
+
 function App() {
   const [gameTurns, setGameTurns] = useState([])
-  const [activePlayer, setActivePlayer] = useState('X')
+
+  const activePlayer = deriveActivePlayer(gameTurns)
 
   function handlePlayerChange(rowIndex, colIndex) {
-    setActivePlayer((curActivePlayer) => (curActivePlayer === 'X' ? 'O' : 'X'))
     setGameTurns((prevTurns) => {
-      let currentPlayer = 'X'
-
-      if (prevTurns.length > 0 && prevTurns[0].player === 'X') {
-        currentPlayer = 'O'
-      }
-
+      const currentPlayer = deriveActivePlayer(prevTurns)
       const updatedTurns = [
         { square: { row: rowIndex, col: colIndex }, player: currentPlayer },
         ...prevTurns,
       ]
-
       return updatedTurns
     })
   }
